@@ -68,8 +68,8 @@
     </form>
     <br>
     <label for="search">Buscar Cabo:</label>
-    <!-- <input type="text" id="search" oninput="searchCable()"> --><!-- GIO: Preservando teu codigo aqui pra voce poder ver melhor. -->
-    <input type="text" id="search" onkeyup="searchCable2()"> <!-- GIO: Aqui vou usar onkeyup, talvez funcionasse com oninput tambem, eu nem sei a diferenca. Descobre e me conta. -->
+   
+    <input type="text" id="search" onkeyup="searchCable2()"> 
     <br><br>
     <table id="cableTable">
         <tr>
@@ -108,14 +108,12 @@
             saveCables();
         }
 
-        // GIO: Aqui ficou mto semelhante, apenas tive que adicionar uma maneira de salvar o ID toda vez que criar um novo
         function addCable2() {
             event.preventDefault(); // Impede que o formulário seja enviado
             let cableType = document.getElementById("cableType").value;
             let cableSize = document.getElementById("cableSize").value;
             let shelfAddress = document.getElementById("shelfAddress").value;
 
-            // GIO: Aqui o hack pra criar o ID e salvar ele. Nesse for eu olho TODOS os cabos, salvando o ID maior. 
             let biggestId = 0
             for (let i = 0; i < cables.length; i++) {
                 let currentId = Number(cables[i].id) // GIO: Voce vai notar que eu salvei o ID como string. Poderia ser number direto, teria sido mais facil, mas sei la. Arruma ai xD. Por ter salvo como string, aqui eu converti pra number pra poder calcular mais facil
@@ -125,7 +123,6 @@
                 }
             }
 
-            // GIO: Dai aqui eu salvo convertendo de volta pra string. maiorId biggestId + 1, pq eu sempre quero salvar 1 numero a mais, logo, um numero unico.
             cables.push({ id: String(biggestId + 1), type: cableType, size: cableSize, shelf: shelfAddress });
 
             // Limpa os campos do formulário
@@ -164,10 +161,7 @@
                 let editButton = document.createElement("button");
                 editButton.innerHTML = "Editar";
                 editButton.className = "button";
-                // editButton.addEventListener("click", function() {
-                //     editCable(index);
-                // });
-                // GIO: Aqui eu ignorei o index, e comecei a usar o proprio element. Element eh, nesse caso, o button que voce criou acima.
+               
                 editButton.addEventListener("click", function() {
                     editCable2(editButton);
                 });
@@ -176,10 +170,7 @@
                 let deleteButton = document.createElement("button");
                 deleteButton.innerHTML = "Excluir";
                 deleteButton.className = "button";
-                // deleteButton.addEventListener("click", function() {
-                //     deleteCable(index);
-                // });
-                // GIO: Mesma coisa do outro button
+              
                 deleteButton.addEventListener("click", function() {
                     deleteCable2(deleteButton);
                 });
@@ -201,10 +192,8 @@
             }
         }
 
-        // GIO: Praticamente o mesmo codigo, apenas usando o ID ao invez do safado index
         function editCable2(element) {
-            // GIO: element eh o elemento do html, nesse caso, o botao. Pesquise element closest e voce vai achar essa funcao.
-            // A partir do botao, ela vai olhando pras classes acima dela ate achar o primeiro tr. no tr, ela pega o ID que a gente salva na displayTable. Esse ID eh o mesmo ID que tem em cables, entao a gente usa ele a partir de agora.
+            
             let cableId = String(element.closest("tr").id) // GIO: Note a conversao para string
             let cableIndex = cables.findIndex(cable => cable.id == cableId) // GIO: Procure findIndex.
             let cable = cables[cableIndex]
@@ -214,7 +203,6 @@
             let shelfAddress = prompt("Digite o novo endereço de prateleira:", cable.shelf);
 
             if (cableType !== null && cableSize !== null && shelfAddress !== null) {
-                 // GIO: Estamos usando o index do findIndex aqui, esse vai ser confiavel sempre. Tambem mantemos salvo o id.
                 cables[cableIndex] = { id: cableId, type: cableType, size: cableSize, shelf: shelfAddress };
                 displayCables();
                 saveCables();
@@ -228,10 +216,8 @@
             saveCables();
         }
 
-        // GIO: praticamente o mesmo codigo. Aqui usando denovo o closest, e um filter.
         function deleteCable2(element) {
             let cableId = element.closest("tr").id
-            // GIO: Do array cables, FILTRE todos os que NAO TIVEREM O MESMO ID. Logo fica uma lista sem o que voce quer excluir, logo basta salvar ela.
             cables = cables.filter(cable => cable.id != cableId)
             displayCables();
             saveCables();
@@ -247,7 +233,6 @@
             displayFilteredCables(filteredCables);
         }
 
-        // GIO: Essa funcao funciona diferente da sua. Ela trabalha com style, quando a linha da tabela precisa ou nao aparecer, a funcao mostra ou esconde ela.
         function searchCable2() {
             let searchValue = document.getElementById("search").value.toUpperCase();
             let table = document.getElementById("cableTable");
@@ -260,13 +245,11 @@
                     let txtValueType = tdType.textContent || tdType.innerText;  // GIO: Pegamos os valores das tds aqui, nao sei a diferenca de textContent pra innerText, mas meti logo os dois pra dale.
                     let txtValueAddress = tdAddress.textContent || tdAddress.innerText;
 
-                    // GIO: Procure funcoes de array: indexOf. -1 significa que o indexOf NAO ENCONTROU o valor, logo > -1 significa que ENCONTROU.
-                    // GIO: Esse || (ou) permite que eu procure pelo tipo OU pelo endereco
+                 
                     let txtValueHasSearchValue = 
                         txtValueType.toUpperCase().indexOf(searchValue) > -1 || 
                         txtValueAddress.toUpperCase().indexOf(searchValue) > -1;
 
-                    // GIO: Aqui so mudamos o estilo da linha. display: "none" faz ela ficar invisivel. :)
                     if (txtValueHasSearchValue) {
                         trs[i].style.display = "";
                     } else {
@@ -276,11 +259,9 @@
             }
         }
 
-        // GIO: Problema grave aqui: esta reconstruindo a tabela.
-        // Função para exibir cabos filtrados na tabela
+      
         function displayFilteredCables(filteredCables) {
             let table = document.getElementById("cableTable");
-             // GIO: Esse comando abaixo esta removendo TODO html da table, entao esta limpando ela.
             table.innerHTML = `
                 <tr>
                     <th>Tipo de Cabo</th>
@@ -291,7 +272,7 @@
             `;
 
             filteredCables.forEach(function(cable, index) {
-                let row = table.insertRow(-1); // GIO: Esse comando cria linhas na tabela novamente, ai como eh super rapido, voce n nota visualmente.
+                let row = table.insertRow(-1); 
                 let cableTypeCell = row.insertCell(0);
                 let cableSizeCell = row.insertCell(1);
                 let shelfAddressCell = row.insertCell(2);
