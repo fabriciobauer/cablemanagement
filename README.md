@@ -1,6 +1,6 @@
 # cablemanagement — catálogo de retalhos de cabos elétricos
 
-Ferramenta que criei para uma distribuidora de materiais elétricos controlar as **pontas de estoque de cabos** (os "retalhos" que sobram dos rolos): cada retalho é cadastrado com bitola, tamanho e cor/local na prateleira, e o balcão encontra na hora se existe uma sobra que atende o pedido do cliente, em vez de cortar um rolo novo.
+Ferramenta que criei na Magnani Luz e Energia para controlar as **pontas de estoque de cabos** (os "retalhos" que sobram dos rolos): cada retalho é cadastrado com bitola, tamanho e cor/local na prateleira, e o balcão encontra na hora se existe uma sobra que atende o pedido do cliente, em vez de cortar um rolo novo.
 
 > *A small single-page tool to catalog leftover electrical cable pieces (gauge, length, shelf) so the sales counter can quickly find a leftover that fits the customer's order.*
 
@@ -21,7 +21,7 @@ HTML, CSS e JavaScript puro (sem frameworks).
 
 ## Contexto
 
-Foi meu primeiro projeto usado no dia a dia de uma empresa (Magnani Luz e Energia, 2023): resolveu um problema real de desperdício de cabo com a solução mais simples possível — um arquivo só, que roda em qualquer computador do balcão.
+Um dos meus primeiros projetos usados no dia a dia de uma empresa: resolve o controle das sobras de cabo com a solução mais simples possível — um arquivo só, que roda em qualquer computador do balcão.
 
 ## Autor
 
